@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-select {
+            margin-bottom: 1.5rem;
+        }
+
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: white;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .conversion-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 0.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .swap-btn {
+            display: block;
+            width: 40px;
+            height: 40px;
+            margin: 0.5rem auto;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .swap-btn:hover {
+            background-color: #764ba2;
+            transform: rotate(180deg);
+        }
+
+        .formula {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #f7fafc;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Unit Converter</h1>
+        
+        <div class="category-select">
+            <select id="category" onchange="changeCategory()">
+                <option value="length">Length</option>
+                <option value="weight">Weight</option>
+                <option value="temperature">Temperature</option>
+                <option value="speed">Speed</option>
+                <option value="area">Area</option>
+            </select>
+        </div>
+
+        <div class="conversion-section">
+            <div class="input-group">
+                <input type="number" id="fromValue" oninput="convert('from')" placeholder="Enter value">
+                <select id="fromUnit" onchange="convert('from')"></select>
+            </div>
+
+            <button class="swap-btn" onclick="swapUnits()">⇅</button>
+
+            <div class="input-group">
+                <input type="number" id="toValue" oninput="convert('to')" placeholder="Result">
+                <select id="toUnit" onchange="convert('from')"></select>
+            </div>
+        </div>
+
+        <div class="formula" id="formula"></div>
+    </div>
+
+    <script>
+        const unitData = {
+            length: {
+                units: ['meters', 'kilometers', 'miles', 'yards', 'feet', 'inches', 'centimeters'],
+                conversions: {
+                    meters: 1,
+                    kilometers: 0.001,
+                    miles: 0.000621371,
+                    yards: 1.09361,
+                    feet: 3.28084,
+                    inches: 39.3701,
+                    centimeters: 100
+                }
+            },
+            weight: {
+                units: ['kilograms', 'grams', 'pounds', 'ounces', 'tons'],
+                conversions: {
+                    kilograms: 1,
+                    grams: 1000,
+                    pounds: 2.20462,
+                    ounces: 35.274,
+                    tons: 0.001
+                }
+            },
+            temperature: {
+                units: ['Celsius', 'Fahrenheit', 'Kelvin'],
+                formulas: {
+                    'Celsius_Fahrenheit': 'x * 9/5 + 32',
+                    'Celsius_Kelvin': 'x + 273.15',
+                    'Fahrenheit_Celsius': '(x - 32) * 5/9',
+                    'Fahrenheit_Kelvin': '(x - 32) * 5/9 + 273.15',
+                    'Kelvin_Celsius': 'x - 273.15',
+                    'Kelvin_Fahrenheit': '(x - 273.15) * 9/5 + 32'
+                }
+            },
+            speed: {
+                units: ['km/h', 'mph', 'm/s', 'knots'],
+                conversions: {
+                    'km/h': 1,
+                    'mph': 0.621371,
+                    'm/s': 0.277778,
+                    'knots': 0.539957
+                }
+            },
+            area: {
+                units: ['square meters', 'square kilometers', 'square miles', 'acres', 'hectares'],
+                conversions: {
+                    'square meters': 1,
+                    'square kilometers': 0.000001,
+                    'square miles': 3.861e-7,
+                    'acres': 0.000247105,
+                    'hectares': 0.0001
+                }
+            }
+        };
+
+        function populateUnits() {
+            const category = document.getElementById('category').value;
+            const fromSelect = document.getElementById('fromUnit');
+            const toSelect = document.getElementById('toUnit');
+            const units = unitData[category].units;
+
+            fromSelect.innerHTML = '';
+            toSelect.innerHTML = '';
+
+            units.forEach(unit => {
+                fromSelect.add(new Option(unit, unit));
+                toSelect.add(new Option(unit, unit));
+            });
+
+            toSelect.selectedIndex = 1;
+            convert('from');
+        }
+
+        function convert(direction) {
+            const category = document.getElementById('category').value;
+            const fromValue = parseFloat(document.getElementById('fromValue').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+
+            if (isNaN(fromValue)) {
+                document.getElementById('toValue').value = '';
+                document.getElementById('formula').textContent = '';
+                return;
+            }
+
+            let result;
+            if (category === 'temperature') {
+                result = convertTemperature(fromValue, fromUnit, toUnit);
+            } else {
+                const fromConversion = unitData[category].conversions[fromUnit];
+                const toConversion = unitData[category].conversions[toUnit];
+                result = fromValue * (toConversion / fromConversion);
+            }
+
+            document.getElementById('toValue').value = result.toFixed(6);
+            updateFormula(category, fromUnit, toUnit, fromValue, result);
+        }
+
+        function convertTemperature(value, from, to) {
+            if (from === to) return value;
+            const formula = unitData.temperature.formulas[`${from}_${to}`];
+            return eval(formula.replace('x', value));
+        }
+
+        function swapUnits() {
+            const fromUnit = document.getElementById('fromUnit');
+            const toUnit = document.getElementById('toUnit');
+            const fromValue = document.getElementById('fromValue');
+            const toValue = document.getElementById('toValue');
+
+            [fromUnit.value, toUnit.value] = [toUnit.value, fromUnit.value];
+            [fromValue.value, toValue.value] = [toValue.value, fromValue.value];
+
+            convert('from');
+        }
+
+        function updateFormula(category, fromUnit, toUnit, fromValue, result) {
+            const formula = document.getElementById('formula');
+            if (category === 'temperature') {
+                const conversionFormula = unitData.temperature.formulas[`${fromUnit}_${toUnit}`];
+                formula.textContent = `Formula: ${conversionFormula.replace('x', fromValue)} = ${result.toFixed(2)}`;
+            } else {
+                formula.textContent = `${fromValue} ${fromUnit} = ${result.toFixed(2)} ${toUnit}`;
+            }
+        }
+
+        function changeCategory() {
+            populateUnits();
+        }
+
+        // Initialize the converter
+        populateUnits();
+    </script>
+</body>
+</html>

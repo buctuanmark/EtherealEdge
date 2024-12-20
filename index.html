@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <title>My Portfolio</title>
+    <script
+      src="https://kit.fontawesome.com/cf7eb3536b.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+  </head>
+<body>
+  <div id="header">
+    <div class="container">
+      <nav id="home">
+        <!-- ari ibutang ag logo -->
+        <img src="" class="logo" />
+        <ul id="sidemenu">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+        </ul>
+        <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+      </nav>
+      <div class="header-text" id="">
+        <p><span class="text"></span></p>
+        <!-- <p>Web Developer</p> -->
+        <h1>Hello!,It's me<br /> <span>Rod Mark</span> Buctuan</h1>
+      </div>
+      <!-- Circle image container -->
+      <div class="image-container">
+        <img src="images/background.jpg" class="profile-image" />
+         
+      </div>
+    </div>
+  </div>
+  
+    <!-- about -->
+    <div id="about">
+      <div class="container">
+        <div class="grow">
+          <div class="about-col-1">
+            <img src="images/Graduate pic.png" alt="" />
+          </div>
+          <div class="about-col-2">
+            <h1 class="sub-title">About Me</h1>
+            <br>
+            <strong>
+              I am Rod Mark P. Buctuan,A 3rd Year college student of Bohol Island State University-Balilihan Campus.I’m currently exploring HTML, CSS, and JavaScript to create user-friendly and responsive web pages. I'm excited to grow my skills and take on new challenges in the world of web development. Feel free to check out my work as I continue to improve and learn!
+            </strong>
+
+            <div class="tab-titles">
+              <p
+                class="tab-links active-link"
+                onclick="opentab('skills', event)"
+              >
+                Skills
+              </p>
+              <p class="tab-links" onclick="opentab('experience', event)">
+                Experience
+              </p>
+              <p class="tab-links" onclick="opentab('education', event)">
+                Education
+              </p>
+             
+            </div>
+            <div class="tab-contents active-tab" id="skills">
+              <ul>
+                <li>
+                  <span>Web Developer</span><br />Designing Web/App
+                  interfaces<br />
+                </li>
+              </ul>
+            </div>
+            <div class="tab-contents" id="experience">
+              <ul>
+                
+               
+              </ul>
+            </div>
+            <div class="tab-contents" id="education">
+              <ul>
+                <li>
+                  <span>Primary Education</span><br />San Isidro Elementary School<br />
+                </li>
+                <li>
+                  <span>Secondary Education</span><br />San Isidro National High School<br />
+                </li>
+                <li>
+                  <span>Tertiary Education</span><br />Bohol Island State University-Balilihan Campus<br />
+                </li>
+
+           
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- services-------------------------------------------------------- -->
+    <div id="services">
+      <div class="container">
+        <h1 class="sub-title">My Services</h1>
+        <div class="service-list">
+          <div>
+            <i class="fa-solid fa-code"></i>
+            <h2>Web Design</h2>
+            <p>
+              A process of creating and designing websites to ensure they are visually appealing, functional, and user-friendly. It involves both the aesthetic and technical aspects of a website to deliver a seamless online experience.
+            </p>
+            <a href="#">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-sharp fa-solid fa-crop"></i>
+            <h2>UI/UX Design</h2>
+            <p>
+              A process of designing digital products like websites, apps, or software to ensure they are visually appealing, functional, and user-friendly.
+            </p>
+            <a href="#">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-brands fa-app-store"></i>
+            <h2>App Design</h2>
+            <p>
+              A process of creating the visual and functional aspects of a mobile or web application to ensure it meets user needs and provides an engaging, efficient experience.
+            </p>
+            <a href="#">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!---------------------------------------- Portfolio --------------------------------------------------->
+    <div id="portfolio">
+      <div class="container">
+        <h1 class="sub-title">My Work</h1>
+        <div class="work-list">
+          <div class="work">
+            <img src="images/work-1.jpg" alt="" />
+            <div class="layer">
+              <h3>Simple Calculator</h3>
+              <p>A calculator is an app or device that performs mathematical calculations, such as addition, subtraction, multiplication, and division.</p>
+              <a href="calculator.html" target="_blank"><i class="fa-solid fa-up-right-from-square"></i></a>
+            </div>
+          </div>
+          <div class="work">
+            <img src="images/work-2.jpg" alt="" />
+            <div class="layer">
+              <h3>To Do list App</h3>
+              <p>A to-do list app helps users organize and manage tasks by allowing them to add, edit, check off, and delete items on their list.</p>
+              <a href="to-do_list_app.html" target="_blank"><i class="fa-solid fa-up-right-from-square"></i></a>
+            </div>
+          </div>
+          <div class="work">
+            <img src="images/work-3.jpg" alt="" />
+            <div class="layer">
+              <h3>Online Shopping App</h3>
+              <p>A unit converter app allows users to easily convert values between different units of measurement, such as length, weight, temperature, and volume.</p>
+              <a href="unit_converter.html" target="_blank"><i class="fa-solid fa-up-right-from-square"></i></a>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="btn">See more</a>
+      </div>
+    </div>
+<!-- -------------------------------contact----------------------------------- -->
+<div id="contact">
+  <div class="container">
+    <div class="row">
+      <div class="contact-left">
+        <h1 class="sub-title">Contact Me</h1>
+        <p><i class="fa-solid fa-paper-plane"></i>buctuanrodmark@gmail.com</p>
+        <p><i class="fa-solid fa-square-phone-flip"></i>09813896074</p>
+        <div class="social-icons">
+          <a href="https://web.facebook.com/rodmark.buctuan.3" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://www.instagram.com/rod.merkbuctuan/" title="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://github.com/buctuanmark" title="Github" target="_blank"><i class="fa-brands fa-github" ></i></a>
+        </div>
+        <!-- <a href="" class="btn btn2">Download CV</a> -->
+      </div>
+      <div class="contact-right">
+        <form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="f5635ea3-2804-42b8-8508-bc6cf0765859">
+          <input type="text" name="Name" placeholder="Your Name" required>
+          <input type="email" name="Email" placeholder="Your Email" required>
+          <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+          <button type="submit" class="btn btn2">Submit</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <footer class="copyright">
+          <p>&copy; Rod Mark's Website 2024</p>
+
+
+        </footer>
+
+
+    <script>
+      var tablinks = document.getElementsByClassName("tab-links");
+      var tabcontents = document.getElementsByClassName("tab-contents");
+
+      function opentab(tabname, event) {
+        for (var tablink of tablinks) {
+          tablink.classList.remove("active-link");
+        }
+        for (var tabcontent of tabcontents) {
+          tabcontent.classList.remove("active-tab");
+        }
+        event.currentTarget.classList.add("active-link");
+        document.getElementById(tabname).classList.add("active-tab");
+      }
+    </script>
+
+    <script>
+        var sidemenu = document.getElementById("sidemenu")
+
+    function openmenu() {
+      sidemenu.style.right = "0";
+    }
+
+    function closemenu() {
+      sidemenu.style.right = "-200px";
+    }
+    </script>
+    <script src="index.js"></script>
+    
+  </body>
+</html>
